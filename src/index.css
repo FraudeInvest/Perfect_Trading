@@ -1,0 +1,521 @@
+/* ========== THÈMES ========== */
+:root {
+  --bg: #0f172a;
+  --bg-dark: #020617;
+  --panel: #111827;
+  --panel-soft: rgba(15, 23, 42, 0.2);
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+
+  --sidebar-bg: rgba(15, 23, 42, 0.65);
+  --sidebar-border: rgba(255, 255, 255, 0.02);
+
+  --blue: #3b82f6;
+  --green: #22c55e;
+  --orange: #f97316;
+  --yellow: #facc15;
+}
+
+html[data-theme="light"] {
+  --bg: #edf2f7;
+  --bg-dark: #d7dde4;
+  --panel: #ffffff;
+  --panel-soft: rgba(0, 0, 0, 0.04);
+  --text: #0f172a;
+  --muted: #6b7280;
+
+  --sidebar-bg: #ffffff;
+  --sidebar-border: rgba(15, 23, 42, 0.08);
+
+  --blue: #2563eb;
+  --green: #16a34a;
+  --orange: #fb923c;
+  --yellow: #facc15;
+}
+
+/* ========== GÉNÉRAL ========== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+.app-shell-pro {
+  display: flex;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, var(--panel) 0%, var(--bg-dark) 70%);
+}
+
+/* ========== SIDEBAR ========== */
+.sidebar {
+  width: 250px;
+  background: var(--sidebar-bg);
+  backdrop-filter: blur(8px);
+  border-right: 1px solid var(--sidebar-border);
+  padding: 1.1rem 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.sidebar-header .app-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.sidebar-header .app-sub {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Icône dashboard dans le header */
+.app-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+/* ---- cartes source (Foxx / Tazapay) ---- */
+.sidebar-source {
+  display: flex;
+  gap: 0.55rem;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid transparent;
+  border-radius: 0.9rem;
+  padding: 0.5rem 0.55rem 0.5rem 0.5rem;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.15s ease;
+  position: relative;
+  color: #ffffff !important;
+}
+
+.sidebar-source:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-source.active {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.25),
+    rgba(59, 130, 246, 0)
+  );
+  border: 1px solid rgba(59, 130, 246, 0.85);
+}
+
+/* titre de la source */
+.sidebar-source-title,
+.sidebar-source .source-text .source-name {
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #fff !important;
+  line-height: 1.1;
+}
+
+/* sous-texte : nb de transactions */
+.sidebar-source-sub,
+.sidebar-source .source-text .source-meta {
+  font-size: 0.7rem;
+  color: rgba(226, 232, 240, 0.6) !important;
+}
+
+/* pastille à droite */
+.source-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  position: absolute;
+  right: 2.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(148, 163, 184, 0.6);
+}
+.source-status-dot.ok {
+  background: #22c55e;
+}
+.source-status-dot.empty {
+  background: #f97316;
+}
+
+/* badge Actif */
+.pill-active {
+  background: rgba(59, 130, 246, 0.9);
+  color: #fff;
+  font-size: 0.6rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  margin-left: auto;
+}
+
+/* en MODE CLAIR */
+html[data-theme="light"] .sidebar-source {
+  color: #0f172a !important;
+}
+html[data-theme="light"] .sidebar-source-title,
+html[data-theme="light"] .sidebar-source .source-text .source-name {
+  color: #0f172a !important;
+  font-weight: 700;
+}
+html[data-theme="light"] .sidebar-source-sub,
+html[data-theme="light"] .sidebar-source .source-text .source-meta {
+  color: rgba(15, 23, 42, 0.55) !important;
+}
+
+/* NAV */
+.nav-btn {
+  background: rgba(15, 23, 42, 0.12);
+  padding: 0.45rem 0.55rem;
+  border-radius: 0.6rem;
+  font-size: 0.8rem;
+  margin-bottom: 0.4rem;
+  cursor: pointer;
+}
+.nav-btn.active {
+  background: rgba(59, 130, 246, 0.25);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+.nav-btn.disabled {
+  opacity: 0.35;
+}
+
+/* ======= FILTRES ======= */
+.filters-panel {
+  background: var(--panel-soft);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 1rem;
+  padding: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+html[data-theme="light"] .filters-panel {
+  border: 1px solid rgba(15, 23, 42, 0.15);
+}
+
+.filter-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.7rem;
+}
+
+.filter-block input,
+.filter-block select {
+  background: rgba(15, 23, 42, 0.25);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.45rem;
+  color: inherit;
+  font-size: 0.75rem;
+}
+html[data-theme="light"] .filter-block input,
+html[data-theme="light"] .filter-block select {
+  background: #fff;
+}
+
+/* bouton reset */
+.btn-reset {
+  margin-top: 0.35rem;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.45rem;
+  color: inherit;
+  padding: 0.35rem 0.5rem;
+  cursor: pointer;
+}
+html[data-theme="light"] .btn-reset {
+  background: #fff;
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
+.filters-panel select {
+  background: rgba(15, 23, 42, 0.35);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  color: #e2e8f0;
+}
+.filters-panel select:focus {
+  outline: none;
+  border-color: rgba(59, 130, 246, 0.85);
+  background: rgba(15, 23, 42, 0.8);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+}
+html[data-theme="light"] .filters-panel select {
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  color: #0f172a;
+}
+html[data-theme="light"] .filters-panel select:focus {
+  background: #edf2ff;
+  border-color: rgba(37, 99, 235, 0.6);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+.filters-panel select option {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+html[data-theme="light"] .filters-panel select option {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+/* footer sidebar (plus utilisé mais on garde le style) */
+.sidebar-footer {
+  margin-top: auto;
+}
+.mode-btn {
+  background: rgba(249, 115, 22, 0.25);
+  border: 1px solid rgba(249, 115, 22, 0.35);
+  border-radius: 0.75rem;
+  padding: 0.45rem 0.55rem;
+  color: inherit;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.78rem;
+}
+
+/* ========== MAIN PANEL ========== */
+.main-panel {
+  flex: 1;
+  padding: 1.2rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+/* Barre du haut : date + semaine (centrées) + bouton thème à droite */
+.top-toolbar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+/* bloc texte centré (date + semaine) */
+.date-week {
+  flex: 1;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* espace entre la date et "Semaine n° X" */
+.date-week span + span {
+  margin-left: 2rem;
+}
+
+/* bouton thème en haut à droite */
+.mode-btn-top {
+  background: rgba(249, 115, 22, 0.25);
+  border: 1px solid rgba(249, 115, 22, 0.35);
+  border-radius: 0.75rem;
+  padding: 0.35rem 0.8rem;
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.78rem;
+  margin-left: auto;
+}
+
+/* cartes / visuels */
+.card {
+  background: var(--panel);
+  border-radius: 1rem;
+  padding: 1rem 1.2rem;
+  min-height: 80px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+html[data-theme="light"] .card {
+  background: #ffffff;
+  box-shadow: 0 5px 16px rgba(15, 23, 42, 0.03);
+}
+.card--stretch {
+  height: 100%;
+}
+
+/* layout visuels */
+.grid-2,
+.visual-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+@media (max-width: 1200px) {
+  .grid-2,
+  .visual-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========== KPI ========== */
+.kpi-colored-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+/* Cartes KPI centrées + texte réduit */
+.kpi-card {
+  border-radius: 1rem;
+  padding: 0.7rem 0.9rem;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* centre horizontalement */
+  justify-content: center;  /* centre verticalement */
+  text-align: center;
+  gap: 0.25rem;
+}
+
+/* Titre de la fiche (ex : Ventes Totales) */
+.kpi-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;      /* une seule ligne */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Valeur principale (ex : 922 838,70 €) */
+.kpi-value {
+  margin-top: 0.25rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Sous-texte (ex : sur 2706 transactions) */
+.kpi-sub {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kpi-blue {
+  background: #2563eb;
+}
+.kpi-green {
+  background: #16a34a;
+}
+.kpi-orange {
+  background: #f97316;
+}
+.kpi-yellow {
+  background: #eab308;
+  color: #0f172a;
+}
+
+/* KPI rouge clair pour "Clients (mois en cours)" */
+.kpi-card.kpi-red {
+  background: #ff6b6b;
+  color: #ffffff;
+}
+
+/* Texte principal plus petit pour la fiche Clients (mois en cours) */
+.kpi-card.kpi-red .kpi-value {
+  font-size: 0.85rem;
+}
+
+/* responsive général */
+@media (max-width: 900px) {
+  .app-shell-pro {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+  .main-panel {
+    padding: 1rem;
+  }
+  .grid-2,
+  .visual-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* TITRES GRAPHIQUES CENTRÉS (si besoin) */
+.chart-title.center,
+.chart-sub.center {
+  text-align: center;
+  width: 100%;
+}
+
+/* TABLEAU DERNIÈRES VENTES */
+.card-table-header {
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+.card-table-header h3 {
+  margin: 0;
+}
+
+.card-table-subtitle {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.table-wrapper {
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+.last-sales-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.last-sales-table th,
+.last-sales-table td {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+.last-sales-table thead th {
+  background: #0f4d7a;
+  color: #ffffff;
+}
+
+.last-sales-table tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.last-sales-total-row td {
+  border-top: 2px solid #0f4d7a;
+  font-weight: 600;
+}
+
+/* -----------------------------------------------------------
+   Icône du sélecteur de date
+------------------------------------------------------------ */
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+
+/* En mode sombre : icône claire (blanche) */
+[data-theme="dark"] input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
